@@ -25,7 +25,7 @@ const Login = () => {
                 
                 <div className="container_input">
                     <FaUser className="icon"/>
-                    <input type="email" placeholder="Digite seu Email." onChange={(e) => setUsername(e.target.value)}/>
+                    <input type="text" placeholder="Digite seu Username." onChange={(e) => setUsername(e.target.value)}/>
                 </div>
 
                 <div className="container_input">
@@ -36,7 +36,7 @@ const Login = () => {
                 <button>Login</button>
 
                 <div className="signup_link">
-                    <p>Não tem uma conta? <a href="">Cadastrar</a></p>
+                    <p>Não tem uma conta? <Link to="/register">Cadastrar</Link></p>
                 </div>
                 </form>
             </div>

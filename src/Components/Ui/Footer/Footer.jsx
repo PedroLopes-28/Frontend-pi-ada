@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div>
       <footer>
-        <p>Feito com humor pelo time: <a href="https://github.com/PedroLopes-28/Frontend-pi-ada">Git</a></p>
+        <p>Feito com &hearts; pelo time: <a href="https://github.com/PedroLopes-28/Frontend-pi-ada">Git</a></p>
       </footer>
     </div>
   )

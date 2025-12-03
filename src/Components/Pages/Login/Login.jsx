@@ -1,20 +1,59 @@
 import React from "react";
 
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { AiOutlineMail } from "react-icons/ai";
+
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import "./Login.css";
 
+const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Login = () => {
 
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if(!emailValido.test(email)){
+            alert("Digite um formato de email válido.");
+            return;
+        }
+
+        if(password.length < 1){
+            alert("Digite sua senha.");
+            return;
+        }
+
+        try{
+            const resp = await fetch('http://localhost:3333/user/login', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({email, password}),
+            });
+
+            const data = await resp.json();
+
+            if(!resp.ok){
+                alert(data.message || "Erro no login");
+                return;
+            }
+
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('id', data.id);
+            navigate("/jokes");
+        }
+
+        catch (err) {
+            console.error('Erro no login: ', err);
+            alert('Erro de rede. Tente novamente.');
+        }
     };
 
     return(
@@ -24,16 +63,16 @@ const Login = () => {
                 <h1>Bem vindo Piadista</h1>
                 
                 <div className="container_input">
-                    <FaUser className="icon"/>
-                    <input type="text" placeholder="Digite seu Username." onChange={(e) => setUsername(e.target.value)}/>
+                    <AiOutlineMail className='icon'/>
+                    <input type="email" value={email} placeholder="Digite seu Email." onChange={(e) => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="container_input">
                     <FaLock className="icon"/>
-                    <input type="password" placeholder="Digite sua Senha." onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password" value={password} placeholder="Digite sua Senha." onChange={(e) => setPassword(e.target.value)}/>
                 </div>
 
-                <button>Login</button>
+                <button type="submit">Login</button>
 
                 <div className="signup_link">
                     <p>Não tem uma conta? <Link to="/register">Cadastrar</Link></p>

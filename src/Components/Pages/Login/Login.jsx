@@ -1,12 +1,9 @@
 import React from "react";
-
 import { FaLock } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
-
 
 import "./Login.css";
 
@@ -21,33 +18,38 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(!emailValido.test(email)){
+        if (!emailValido.test(email)) {
             alert("Digite um formato de email válido.");
             return;
         }
 
-        if(password.length < 1){
+        if (password.length < 1) {
             alert("Digite sua senha.");
             return;
         }
 
-        try{
+        try {
             const resp = await fetch('http://localhost:3333/user/login', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email, password}),
+                body: JSON.stringify({ email, password }),
             });
 
             const data = await resp.json();
 
-            if(!resp.ok){
+            if (!resp.ok) {
                 alert(data.message || "Erro no login");
                 return;
             }
 
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('id', data.id);
-            navigate("/jokes");
+            // SALVAR TOKEN E USER ID DECODIFICANDO O JWT
+            localStorage.setItem("token", data.token);
+
+            const payload = JSON.parse(atob(data.token.split(".")[1]));
+            localStorage.setItem("user_id", payload.sub);
+
+
+            navigate("/home");
         }
 
         catch (err) {
@@ -56,31 +58,41 @@ const Login = () => {
         }
     };
 
-    return(
+    return (
         <div className="pagina_login">
             <div className="container">
                 <form onSubmit={handleSubmit}>
-                <h1>Bem vindo Piadista</h1>
-                
-                <div className="container_input">
-                    <AiOutlineMail className='icon'/>
-                    <input type="email" value={email} placeholder="Digite seu Email." onChange={(e) => setEmail(e.target.value)}/>
-                </div>
+                    <h1>Bem vindo Piadista</h1>
 
-                <div className="container_input">
-                    <FaLock className="icon"/>
-                    <input type="password" value={password} placeholder="Digite sua Senha." onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+                    <div className="container_input">
+                        <AiOutlineMail className='icon' />
+                        <input
+                            type="email"
+                            value={email}
+                            placeholder="Digite seu Email."
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
 
-                <button type="submit">Login</button>
+                    <div className="container_input">
+                        <FaLock className="icon" />
+                        <input
+                            type="password"
+                            value={password}
+                            placeholder="Digite sua Senha."
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
 
-                <div className="signup_link">
-                    <p>Não tem uma conta? <Link to="/register">Cadastrar</Link></p>
-                </div>
+                    <button type="submit">Login</button>
+
+                    <div className="signup_link">
+                        <p>Não tem uma conta? <Link to="/register">Cadastrar</Link></p>
+                    </div>
                 </form>
             </div>
         </div>
     );
 };
 
-export default Login
+export default Login;

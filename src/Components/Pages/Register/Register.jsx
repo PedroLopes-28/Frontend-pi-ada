@@ -3,7 +3,7 @@ import React from 'react'
 import { FaUser, FaLock } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 import { useState } from "react";
-
+import api from '../../../services/api';
 import { Await, Link, useNavigate } from "react-router-dom";
 
 import "./Register.css";
@@ -43,20 +43,10 @@ const Register = () => {
         }
 
         try{
-          const resp = await fetch('http://localhost:3333/user', {
-            method: "POST",
-            headers: { "Content-Type" : "application/json" },
-            body: JSON.stringify({name, email, password}),
-          });
+          const resp = await api.post("/user", {name:name ,email:email, password:password})
 
-          //resposta que o back vai enviar pro front
-          const data = await resp.json();
-
-          if(!resp.ok){
-            //esse data message vem do back
-            alert(data.message || 'Erro no cadastro.');
-            return;
-          }
+            const data = await resp.data
+          
 
           alert('Você foi cadastrado! Faça o Login.');
           navigate('/');

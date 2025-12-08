@@ -1,0 +1,137 @@
+
+.home-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  font-family: "Poppins", sans-serif;
+}
+
+h3 {
+  margin-top: 20px;
+  font-size: 20px;
+  border-left: 4px solid #4a90e2;
+  padding-left: 10px;
+  color: #333;
+}
+
+button {
+  background-color: #4a90e2;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #3c78bb;
+}
+
+/* botão deletar */
+.btn-delete {
+  background-color: #e94f4f;
+}
+
+.botoes{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn-delete:hover {
+  background-color: #c63d3d;
+}
+
+/* botão salvar */
+.btn-save {
+  background-color: #34c759;
+}
+
+.btn-save:hover {
+  background-color: #2ea94f;
+}
+
+/* ===== FORMULÁRIO DE CRIAÇÃO ===== */
+form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* ===== LISTA DE PIADAS ===== */
+.joke-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.joke-item {
+  background: #f8f9fc;
+  margin-bottom: 12px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+/* Texto da piada */
+.joke-text {
+  font-size: 16px;
+  color: #444;
+}
+
+/* Container de botões */
+.joke-item button {
+  margin-right: 8px;
+}
+
+/* Inputs de edição */
+.edit-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 15px;
+}
+
+/* ===== HR ===== */
+hr {
+  margin: 25px 0;
+  border: none;
+  height: 1px;
+  background: #ededed;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 600px) {
+  .home-container {
+      padding: 15px;
+  }
+
+  form {
+      flex-direction: column;
+  }
+
+  form button {
+      width: 100%;
+  }
+
+  .joke-item {
+      padding: 10px;
+  }
+}

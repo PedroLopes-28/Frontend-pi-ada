@@ -1,12 +1,10 @@
 import React from "react";
-
 import { FaLock } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
-
+import axios from "axios";
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
-
+import api from "../../../services/api";
 
 import "./Login.css";
 
@@ -21,66 +19,69 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(!emailValido.test(email)){
+        if (!emailValido.test(email)) {
             alert("Digite um formato de email válido.");
             return;
         }
 
-        if(password.length < 1){
+        if (password.length < 1) {
             alert("Digite sua senha.");
             return;
         }
 
-        try{
-            const resp = await fetch('http://localhost:3333/user/login', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email, password}),
-            });
+        try {
+            const resp = await api.post("/user/login", {email:email, password:password})
 
-            const data = await resp.json();
+            const data = await resp.data
 
-            if(!resp.ok){
-                alert(data.message || "Erro no login");
-                return;
-            }
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("id", data.id)
 
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('id', data.id);
-            navigate("/jokes");
+
+            navigate("/home");
         }
 
         catch (err) {
-            console.error('Erro no login: ', err);
+            console.error('Erro no login: ', err.response.data);
             alert('Erro de rede. Tente novamente.');
         }
     };
 
-    return(
+    return (
         <div className="pagina_login">
             <div className="container">
                 <form onSubmit={handleSubmit}>
-                <h1>Bem vindo Piadista</h1>
-                
-                <div className="container_input">
-                    <AiOutlineMail className='icon'/>
-                    <input type="email" value={email} placeholder="Digite seu Email." onChange={(e) => setEmail(e.target.value)}/>
-                </div>
+                    <h1>Bem vindo Piadista</h1>
 
-                <div className="container_input">
-                    <FaLock className="icon"/>
-                    <input type="password" value={password} placeholder="Digite sua Senha." onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+                    <div className="container_input">
+                        <AiOutlineMail className='icon' />
+                        <input
+                            type="email"
+                            value={email}
+                            placeholder="Digite seu Email."
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
 
-                <button type="submit">Login</button>
+                    <div className="container_input">
+                        <FaLock className="icon" />
+                        <input
+                            type="password"
+                            value={password}
+                            placeholder="Digite sua Senha."
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
 
-                <div className="signup_link">
-                    <p>Não tem uma conta? <Link to="/register">Cadastrar</Link></p>
-                </div>
+                    <button type="submit">Login</button>
+
+                    <div className="signup_link">
+                        <p>Não tem uma conta? <Link to="/register">Cadastrar</Link></p>
+                    </div>
                 </form>
             </div>
         </div>
     );
 };
 
-export default Login
+export default Login;

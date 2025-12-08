@@ -6,7 +6,7 @@
 }
 
 .pagina_login{
-    min-height: 79.2vh;
+    min-height: 80vh;
     background-image: url('../../../assets/Imagens/emojiRindo.jpg');
     background-size: cover;
     background-position: center;
@@ -25,8 +25,14 @@
     border-radius: 10px;
 
     display: flex;
+    
     align-items: center;
     justify-content: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
 }
 
 .container h1{

@@ -5,6 +5,11 @@ footer{
     font-size: large;
     color: #0f2b66;
     padding: 20px;
+    bottom: 0;
+    right:0;
+    left:0;
+   position: fixed;
+    width:100;
 }
 
 footer a{

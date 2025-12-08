@@ -1,4 +1,4 @@
-/* ===== CONTAINER PRINCIPAL ===== */
+
 .home-container {
   max-width: 700px;
   margin: 40px auto;
@@ -9,7 +9,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* ===== TÍTULOS ===== */
 h3 {
   margin-top: 20px;
   font-size: 20px;
@@ -18,7 +17,6 @@ h3 {
   color: #333;
 }
 
-/* ===== BOTÕES ===== */
 button {
   background-color: #4a90e2;
   border: none;
@@ -37,6 +35,12 @@ button:hover {
 /* botão deletar */
 .btn-delete {
   background-color: #e94f4f;
+}
+
+.botoes{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .btn-delete:hover {

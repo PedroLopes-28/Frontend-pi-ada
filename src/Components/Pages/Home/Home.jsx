@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import "./Home.css";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [jokes, setJokes] = useState([]);
   const [randomJoke, setRandomJoke] = useState("");
-  const [newJoke, setNewJoke] = useState("");
+  const [newJokeSetup, setNewJokeSetup] = useState("");
+  const [newJokePunchline, setNewJokePunchline] = useState("");
   const [editJokeId, setEditJokeId] = useState(null);
   const [editJokeText, setEditJokeText] = useState("");
+  const navigate = useNavigate();
 
-  const user_id = localStorage.getItem("user_id");
+  const user_id = localStorage.getItem("id");
+  console.log(user_id)
 
-  // --- CARREGAR LISTA DE PIADAS ---
+
   async function fetchJokes() {
     if (!user_id) return;
     try {
@@ -22,13 +26,13 @@ export default function Home() {
     }
   }
 
-  // --- CRIAR PIADA ---
+//CRIA PIADA
   async function handleCreateJoke(e) {
     e.preventDefault();
-    if (!newJoke.trim() || !user_id) return;
+    if (!newJokeSetup.trim() || !newJokePunchline.trim() ||!user_id) return;
 
     try {
-      const response = await api.post("/joke", { setup: newJoke, punchline: newJoke, user_id });
+      const response = await api.post("/joke", { setup: newJokeSetup, punchline: newJokePunchline, user_id });
       
       // adiciona no estado local sem duplicar
       setJokes(prev => [...prev, response.data]);
@@ -47,6 +51,7 @@ export default function Home() {
       const response = await api.get("/joke/random", { params: { user_id } });
       const joke = response.data;
       setRandomJoke(`${joke.setup} — ${joke.punchline}`);
+      window.location.reload();//recarrega a pagina
     } catch (error) {
       console.error("Erro ao gerar piada aleatória:", error);
       alert("Erro ao gerar piada aleatória. Tente novamente.");
@@ -87,13 +92,23 @@ export default function Home() {
     }
   }
 
+  function logoutHandler(){
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+
+    navigate("/login");
+  }
+
   useEffect(() => {
     fetchJokes();
   }, []);
 
   return (
     <div className="home-container">
+      <div className="botoes">
       <button onClick={handleRandomJoke}>Gerar piada aleatória</button>
+      <button onClick={logoutHandler}>Logout</button>
+      </div>
       {randomJoke && <p><strong>Piada aleatória:</strong> {randomJoke}</p>}
 
       <hr />
@@ -102,9 +117,15 @@ export default function Home() {
       <form onSubmit={handleCreateJoke}>
         <input
           type="text"
-          placeholder="Digite sua piada"
-          value={newJoke}
-          onChange={(e) => setNewJoke(e.target.value)}
+          placeholder="Digite o começo da piada"
+          value={newJokeSetup}
+          onChange={(e) => setNewJokeSetup(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Digite a punchline da piada"
+          value={newJokePunchline}
+          onChange={(e) => setNewJokePunchline(e.target.value)}
         />
         <button type="submit">Adicionar</button>
       </form>

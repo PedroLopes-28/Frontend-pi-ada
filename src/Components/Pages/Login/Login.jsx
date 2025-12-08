@@ -1,9 +1,10 @@
 import React from "react";
 import { FaLock } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
-
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../../../services/api";
 
 import "./Login.css";
 
@@ -29,31 +30,19 @@ const Login = () => {
         }
 
         try {
-            const resp = await fetch('http://localhost:3333/user/login', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            });
+            const resp = await api.post("/user/login", {email:email, password:password})
 
-            const data = await resp.json();
+            const data = await resp.data
 
-            if (!resp.ok) {
-                alert(data.message || "Erro no login");
-                return;
-            }
-
-            // SALVAR TOKEN E USER ID DECODIFICANDO O JWT
             localStorage.setItem("token", data.token);
-
-            const payload = JSON.parse(atob(data.token.split(".")[1]));
-            localStorage.setItem("user_id", payload.sub);
+            localStorage.setItem("id", data.id)
 
 
             navigate("/home");
         }
 
         catch (err) {
-            console.error('Erro no login: ', err);
+            console.error('Erro no login: ', err.response.data);
             alert('Erro de rede. Tente novamente.');
         }
     };

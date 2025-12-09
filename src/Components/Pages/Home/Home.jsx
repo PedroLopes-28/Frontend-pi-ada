@@ -8,8 +8,11 @@ export default function Home() {
   const [randomJoke, setRandomJoke] = useState("");
   const [newJokeSetup, setNewJokeSetup] = useState("");
   const [newJokePunchline, setNewJokePunchline] = useState("");
+  
   const [editJokeId, setEditJokeId] = useState(null);
-  const [editJokeText, setEditJokeText] = useState("");
+  const [editSetup, setEditSetup] = useState("");
+  const [editPunchline, setEditPunchline] = useState("");
+
   const navigate = useNavigate();
 
   const user_id = localStorage.getItem("id");
@@ -26,7 +29,6 @@ export default function Home() {
     }
   }
 
-//CRIA PIADA
   async function handleCreateJoke(e) {
     e.preventDefault();
     if (!newJokeSetup.trim() || !newJokePunchline.trim() ||!user_id) return;
@@ -34,31 +36,32 @@ export default function Home() {
     try {
       const response = await api.post("/joke", { setup: newJokeSetup, punchline: newJokePunchline, user_id });
       
-      // adiciona no estado local sem duplicar
       setJokes(prev => [...prev, response.data]);
-      setNewJoke("");
+
+      setNewJokeSetup("");
+      setNewJokePunchline("");
+
     } catch (error) {
       console.error("Erro ao criar piada:", error);
       alert("Erro ao criar piada. Tente novamente.");
     }
   }
 
-  // --- GERAR PÍADA ALEATÓRIA ---
   async function handleRandomJoke() {
     if (!user_id) return;
 
     try {
       const response = await api.get("/joke/random", { params: { user_id } });
       const joke = response.data;
-      setRandomJoke(`${joke.setup} — ${joke.punchline}`);
-      window.location.reload();//recarrega a pagina
+
+      setNewJokeSetup(joke.setup);
+      setNewJokePunchline(joke.punchline);
     } catch (error) {
       console.error("Erro ao gerar piada aleatória:", error);
       alert("Erro ao gerar piada aleatória. Tente novamente.");
     }
   }
 
-  // --- EXCLUIR PIADA ---
   async function handleDelete(id) {
     try {
       await api.delete("/joke/remove", { params: { joke_id: id } });
@@ -69,23 +72,30 @@ export default function Home() {
     }
   }
 
-  // --- SALVAR EDIÇÃO ---
   async function handleSaveEdit(id) {
-    if (!editJokeText.trim() || !user_id) return;
+    if (!editSetup.trim() || !editPunchline.trim() || !user_id) return;
 
     try {
       await api.put(
         "/joke/edit",
-        { setup: editJokeText, punchline: editJokeText, user_id },
+        { setup: editSetup, punchline: editPunchline, user_id },
         { params: { joke_id: id } }
       );
-
-      setJokes(prev =>
-        prev.map(j => (j.id === id ? { ...j, setup: editJokeText, punchline: editJokeText } : j))
+      
+        setJokes(prev =>
+        prev.map(j => {
+          if (j.id === id) {
+            return {...j, setup : editSetup, punchline : editPunchline};
+          }
+          else{
+            return j;
+          }
+        })
       );
 
       setEditJokeId(null);
-      setEditJokeText("");
+      setEditSetup("");
+      setEditPunchline("");
     } catch (error) {
       console.error("Erro ao editar piada:", error);
       alert("Erro ao editar piada. Tente novamente.");
@@ -104,61 +114,86 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home-container">
-      <div className="botoes">
-      <button onClick={handleRandomJoke}>Gerar piada aleatória</button>
-      <button onClick={logoutHandler}>Logout</button>
+    <div className="pagina_home">
+      <div className="container">
+        <div className="container_criar_piada">
+
+          <div>
+            <button className="botao_adicionar" onClick={handleRandomJoke}>Gerar piada aleatória</button>
+          </div>
+
+          <hr />
+            <p>Criar uma Nova Piada</p>
+            <form onSubmit={handleCreateJoke}>
+              <input type="text" placeholder="Digite o começo da piada" value={newJokeSetup} onChange={(e) => setNewJokeSetup(e.target.value)}/>
+
+              <input type="text" placeholder="Digite a punchline da piada" value={newJokePunchline} onChange={(e) => setNewJokePunchline(e.target.value)}/>
+
+              <button className="botao_adicionar" type="submit">Adicionar</button>
+            </form>
+          <hr />
+          
+        </div>
+
+        <div className="container_lista_piada">
+          <p>Lista de Piadas: </p>
+
+         <ul className="lista_piada">
+  {jokes.map((joke) => {
+
+    if (editJokeId === joke.id) {
+      return (
+        <li key={joke.id} className="item_piada">
+          <div className="edit_container">
+            <input className="input_edit"
+              type="text"
+              value={editSetup}
+              onChange={(e) => setEditSetup(e.target.value)}
+              placeholder="Edite o começo da piada"
+            />
+
+            <input className="input_edit"
+              type="text"
+              value={editPunchline}
+              onChange={(e) => setEditPunchline(e.target.value)}
+              placeholder="Edite a punchline da piada"
+            />
+
+            <button className="botao_salvar" onClick={() => handleSaveEdit(joke.id)}>Salvar</button>
+            <button className="botao_cancelar" onClick={() => setEditJokeId(null)}>Cancelar</button>
+          </div>
+        </li>
+      );
+    }
+
+    return (
+      <li key={joke.id} className="item_piada">
+        <div className="display_piada">
+
+          <span className="texto_piada">
+            {joke.setup} - {joke.punchline}
+          </span>
+
+          <div className="botao_editar">
+            <button onClick={() => {
+              setEditJokeId(joke.id);
+              setEditSetup(joke.setup);
+              setEditPunchline(joke.punchline);
+            }}>
+              Editar
+            </button>
+
+            <button className="botao_excluir" onClick={() => handleDelete(joke.id)}>
+              Excluir
+            </button>
+          </div>
+        </div>
+      </li>
+    );
+  })}
+</ul>
+        </div>
       </div>
-      {randomJoke && <p><strong>Piada aleatória:</strong> {randomJoke}</p>}
-
-      <hr />
-
-      <h3>Criar nova piada</h3>
-      <form onSubmit={handleCreateJoke}>
-        <input
-          type="text"
-          placeholder="Digite o começo da piada"
-          value={newJokeSetup}
-          onChange={(e) => setNewJokeSetup(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Digite a punchline da piada"
-          value={newJokePunchline}
-          onChange={(e) => setNewJokePunchline(e.target.value)}
-        />
-        <button type="submit">Adicionar</button>
-      </form>
-
-      <hr />
-
-      <h3>Lista de piadas</h3>
-      <ul className="joke-list">
-        {jokes.map((joke) => (
-          <li key={joke.id} className="joke-item">
-            {editJokeId === joke.id ? (
-              <>
-                <input
-                  className="edit-input"
-                  type="text"
-                  value={editJokeText}
-                  onChange={(e) => setEditJokeText(e.target.value)}
-                />
-                <button className="btn-save" onClick={() => handleSaveEdit(joke.id)}>Salvar</button>
-                <button onClick={() => setEditJokeId(null)}>Cancelar</button>
-              </>
-            ) : (
-              <>
-                <span className="joke-text">{joke.setup} — {joke.punchline}</span>
-                <div>
-                  <button onClick={() => { setEditJokeId(joke.id); setEditJokeText(joke.setup); }}>Editar</button>
-                  <button className="btn-delete" onClick={() => handleDelete(joke.id)}>Excluir</button>
-                </div>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

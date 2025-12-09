@@ -87,7 +87,13 @@ form{
     font-size: 16px;
     font-weight: 600;
     text-shadow: none;
+    transition: all 0.3s ease;
+}
 
+.container button:hover{
+    background-color: rgb(33, 72, 164);
+    color: #fff;
+    transform: scale(1.02);
 }
 
 .container .signup_link{

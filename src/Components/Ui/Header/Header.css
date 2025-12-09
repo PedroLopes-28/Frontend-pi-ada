@@ -1,0 +1,46 @@
+header{
+    text-shadow: 100px rgba(255, 255, 255, 0.1);
+    background-color: rgb(255, 238, 151);
+    color: #0f2b66;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.user_info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    right: 20px;
+}
+
+.user_name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #0f2b66;
+}
+
+.logout_button {
+    background-color: #0f2b66;
+    color: rgb(255, 238, 151);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout_button:hover {
+    background-color: #1a3f8f;
+    transform: scale(1.05);
+}

@@ -1,0 +1,259 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pagina_home {
+  background-color: rgb(252, 248, 215);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 1800px;
+  padding: 5px;
+}
+
+.container_criar_piada,
+.container_lista_piada {
+  flex: 1;
+  min-width: 450px;
+  max-width: 800px;
+  height: 450px;
+  padding: 30px;
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+
+  overflow: hidden;
+}
+
+.container_lista_piada {
+  display: flex;
+  flex-direction: column;
+}
+
+.container_lista_piada > p,
+.container_criar_piada > p {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.lista_piada {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* barra de rolagem da lista de piadas */
+.lista_piada::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lista_piada::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+}
+
+.lista_piada::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+button {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.botao_adicionar,
+.botao_editar button {
+  background-color: #4a90e2;
+}
+
+.botao_adicionar:hover,
+.botao_editar button:hover {
+  background-color: #3c78bb;
+  transform: translateY(-1px);
+}
+
+.botao {
+  margin-bottom: 20px;
+}
+
+.botao button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+form input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+form button {
+  margin-top: 5px;
+  padding: 12px;
+}
+
+/*containers da piada */
+.item_piada {
+  background: rgba(255,255,255,0.7);
+  margin-bottom: 12px;
+  padding: 15px 18px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+.item_piada:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.display_piada {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.texto_piada {
+  font-size: 16px;
+  color: #444;
+  flex: 1;
+  line-height: 1.5;
+}
+
+.botao_editar {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.input_edit {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.input_edit:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.edit_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.botao_parte_editar {
+  margin-top: 5px;
+  padding: 10px 16px;
+}
+
+/*  */
+hr {
+  margin: 25px 0;
+  border: none;
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+}
+
+@media (max-width: 1200px) {
+  .container_criar_piada,
+  .container_lista_piada {
+    min-width: 350px;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .container_criar_piada,
+  .container_lista_piada {
+    width: 100%;
+    max-width: 700px;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagina_home {
+    padding: 20px 10px;
+  }
+
+  .container_criar_piada,
+  .container_lista_piada {
+    height: auto;
+    min-height: 400px;
+    padding: 20px;
+  }
+
+  .display_piada {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .botao_editar {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

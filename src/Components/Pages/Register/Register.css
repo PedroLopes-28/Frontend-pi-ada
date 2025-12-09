@@ -5,15 +5,19 @@
 }
 
 .pagina_cadastro{
-    min-height: calc(100vh - 180px);
+    height: 100vh;
     background-image: url('../../../assets/Imagens/emojiRindo.jpg');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 0;
+    padding: 20px;
+    padding-top: 100px;
+    margin-bottom: 50px;
 }
 
 .container{

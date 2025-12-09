@@ -9,7 +9,7 @@ const Unauthorized = () => {
         <h1>Acesso Negado</h1>
         <p>Opa, engraçadinho! Tentando entrar sem login?</p>
         <p>As piadas são exclusivas para piadistas cadastrados, bobão!</p>
-        <p>Volta pro login manezão!</p>
+        <p>Volta pro login!</p>
         <Link to="/" className='btn_voltar'>Fazer Login</Link>
       </div>
     </div>

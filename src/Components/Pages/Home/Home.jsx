@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import "./Home.css";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [jokes, setJokes] = useState([]);
-  const [randomJoke, setRandomJoke] = useState("");
   const [newJokeSetup, setNewJokeSetup] = useState("");
   const [newJokePunchline, setNewJokePunchline] = useState("");
   
@@ -13,21 +11,22 @@ export default function Home() {
   const [editSetup, setEditSetup] = useState("");
   const [editPunchline, setEditPunchline] = useState("");
 
-  const navigate = useNavigate();
-
   const user_id = localStorage.getItem("id");
   console.log(user_id)
 
-
-  async function fetchJokes() {
-    if (!user_id) return;
-    try {
-      const response = await api.get("/joke/user", { params: { user_id } });
-      setJokes(response.data);
-    } catch (error) {
-      console.error("Erro ao carregar piadas:", error);
+  useEffect(() => {
+    async function fetchJokes() {
+      if (!user_id) return;
+      try {
+        const response = await api.get("/joke/user", { params: { user_id } });
+        setJokes(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar piadas:", error);
+      }
     }
-  }
+
+    fetchJokes();
+  }, [user_id]);
 
   async function handleCreateJoke(e) {
     e.preventDefault();
@@ -101,17 +100,6 @@ export default function Home() {
       alert("Erro ao editar piada. Tente novamente.");
     }
   }
-
-  function logoutHandler(){
-    localStorage.removeItem("id");
-    localStorage.removeItem("token");
-
-    navigate("/login");
-  }
-
-  useEffect(() => {
-    fetchJokes();
-  }, []);
 
   return (
     <div className="pagina_home">

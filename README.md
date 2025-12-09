@@ -1,4 +1,4 @@
-# Projeto  \(\pi \) -ada
+# Projeto  pi-ada
 
 O Site  \(\pi \) -ada foi feito para o armazenamento de piadas para serem usadas em todas as ocasiões possiveis, desde o Natal até quando está se sendo stalkeado na rua, para que voce sempre esteja preparado para soltar uma boa piada para aliviar o clima, bem como a chance de, no caso de falta de ideias, o gerar de uma piada aleatória vinda direto do banco de dados da https://v2.jokeapi.dev/joke/Any?lang=en&safemode&type=twopart
 

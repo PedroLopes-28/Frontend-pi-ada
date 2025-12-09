@@ -1,31 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import "./Header.css";
 
-export default function Header({ showLogout = false }) {
+const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  }
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const name = localStorage.getItem('userName');
+    
+    if (token && name) {
+      setIsLoggedIn(true);
+      setUserName(name);
+    } else {
+      setIsLoggedIn(false);
+      setUserName('');
+    }
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('userName');
+    setIsLoggedIn(false);
+    setUserName('');
+    navigate('/');
+  };
 
   return (
-    <header className="header-container">
-      <h1>Sistema de Piadas</h1>
-
-      {showLogout && (
-        <button
-          onClick={logout}
-          style={{
-            padding: "6px 12px",
-            backgroundColor: "#ff4d4d",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}>
-          Logout
-        </button>
-      )}
-    </header>
-  );
+    <div className='container_header'>
+      <header>
+        <h1>π-adas para você, engraçadinho.</h1>
+        {isLoggedIn && (
+          <div className='user_info'>
+            <span className='user_name'>Olá {userName}, hahahaha!</span>
+            <button className='logout_button' onClick={handleLogout}>Logout</button>
+          </div>
+        )}
+      </header>
+    </div>
+  )
 }
+
+export default Header

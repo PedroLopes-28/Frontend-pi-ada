@@ -54,7 +54,8 @@ const Register = () => {
 
         catch (err){
           console.error("Erro no cadastro:", err);
-          alert("Erro na rede.")
+          const mensagem = err.response?.data?.message || err.response?.data?.error || 'Erro na rede.';
+          alert(mensagem);
         }
     };
 
@@ -87,7 +88,7 @@ const Register = () => {
                 <button type='submit'>Cadastrar</button>
 
                 <div className='login_link'>
-                  <p>Realize o <Link to="/">Login</Link></p>
+                  <p>Já se cadastrou? Realize o <Link to="/">Login</Link></p>
                 </div>
             </form>
         </div>

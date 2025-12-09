@@ -35,15 +35,17 @@ const Login = () => {
             const data = await resp.data
 
             localStorage.setItem("token", data.token);
-            localStorage.setItem("id", data.id)
+            localStorage.setItem("id", data.id);
+            localStorage.setItem("userName", data.name);
 
 
             navigate("/home");
         }
 
         catch (err) {
-            console.error('Erro no login: ', err.response.data);
-            alert('Erro de rede. Tente novamente.');
+            console.error('Erro no login: ', err);
+            const mensagem = err.response?.data?.message || err.response?.data?.error || 'Erro de rede. Tente novamente.';
+            alert(mensagem);
         }
     };
 

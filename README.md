@@ -14,7 +14,7 @@ O Front conta com três paginas:
 
 A pagina de cadastro para a criação da conta, que é onde suas piadas serão armazenadas, segue imagem da pagina abaixo:
 
-![Tela de Cadastro](./assets/PrintsDoSite/cadastro.png)
+![Tela de Cadastro](src\assets\PrintsDoSite\cadastro.png)
 
 A pagina de login para que voce entre em sua conta, é por aqui que o Backend envia o JWT Token para a autenticação do usuário, permitindo acesso a proxima pagina de piadas, bem como permite que o Front acesse as rotas autenticadas do Backend, que são as de criação de piadas. Segue imagem da pagina abaixo:
 

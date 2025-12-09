@@ -55,6 +55,6 @@ Com isso é possivel filtrar por category, como por exemplo category=programming
 
 Todo esse projeto foi desenvolvido por nós aqui em baixo:
 
-Pedro Henrique de Souza Lopes - https://github.com/PedroLopes-28
-Bianca dos Reis Moraes - https://github.com/BiancaReisMoraes
-Silvan da José da Silva Júnior - https://github.com/SilvanJr14
+- Pedro Henrique de Souza Lopes - https://github.com/PedroLopes-28
+- Bianca dos Reis Moraes - https://github.com/BiancaReisMoraes
+- Silvan da José da Silva Júnior - https://github.com/SilvanJr14

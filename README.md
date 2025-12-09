@@ -41,13 +41,13 @@ O Backend conta com 7 rotas no total, sendo duas para o usuário, sendo a de Log
 - Criar uma nova piada
 - Editar uma piada
 - Remover uma piada
-- Pegar uma piada aleatória da api https://v2.jokeapi.dev/joke/Any?lang=en&safemode&type=twopart
+- Pegar uma piada aleatória da api pelo link https://v2.jokeapi.dev/joke/Any?lang=en&safemode&type=twopart
 
 Alem disso, é possivel editar o link da api citada acima para modificar os tipos de piada que vem por ela, segue o modelo de piada padrão que a api retorna:
 
 ![Modelo de piada da api](./src/assets/PrintsDoSite/piada.png)
 
-Com isso é possivel filtrar por category, como por exemplo category=programming para piadas de programação dentre outras bem como garantir que as suas piadas não vão ofender ninguem, no caso do projeto usamos o safe-mode no link, que já filtra piadas ofensivas.
+Com isso é possivel filtrar por category, como por exemplo category=programming para piadas de programação dentre outras bem como garantir que as suas piadas não vão ofender ninguem, no caso do projeto usamos o safe-mode no link, que já filtra piadas ofensivas. Bem como o idioma das piadas que irão vir por meio de lang="" que no caso desse projeto optamos por inglês (en) devido a maior variedade de piadas
 
 É possivel filtrar apenas tags especificas ao trocar o safemode por blacklistFlags="" e colocar as flags que voce deseja remover no lugar das aspas.
 

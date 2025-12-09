@@ -14,20 +14,20 @@ O Front conta com três paginas:
 
 A pagina de cadastro para a criação da conta, que é onde suas piadas serão armazenadas, segue imagem da pagina abaixo:
 
-![Tela de Cadastro](src\assets\PrintsDoSite\cadastro.png)
+![Tela de Cadastro](./src/assets/PrintsDoSite/cadastro.png)  
 
 A pagina de login para que voce entre em sua conta, é por aqui que o Backend envia o JWT Token para a autenticação do usuário, permitindo acesso a proxima pagina de piadas, bem como permite que o Front acesse as rotas autenticadas do Backend, que são as de criação de piadas. Segue imagem da pagina abaixo:
 
-![Tela de Login](./assets/PrintsDoSite/login.png)
+![Tela de Login](./src/assets/PrintsDoSite/login.png)
 
 A pagina de Piadas (Home) conta com um formulario para a criação das suas encarnações da diversão bem como possibilita a geração de piadas aleatorias pelo botão acima dele, as piadas são armazenadas no Backend e então devolvidas na lista a direita, cada piada pode ser deletada ou editada como o usuário preferir. Segue imagem da pagina abaixo:
 
-![Tela Home](./assets/PrintsDoSite/home.png)
+![Tela Home](./src/assets/PrintsDoSite/home.png)
 
 Alem dessas paginas no caso de tentativa de entrada por link (colocando o /home na url sem fazer login)
 o usuário não autorizado será redirecionado para a pagina abaixo:
 
-![Tela de Não Autorizado](./assets/PrintsDoSite/errado.png)
+![Tela de Não Autorizado](./src/assets/PrintsDoSite/errado.png)
 
 # Backend
 
@@ -45,7 +45,7 @@ O Backend conta com 7 rotas no total, sendo duas para o usuário, sendo a de Log
 
 Alem disso, é possivel editar o link da api citada acima para modificar os tipos de piada que vem por ela, segue o modelo de piada padrão que a api retorna:
 
-![Modelo de piada da api](./assets/PrintsDoSite/piada.png)
+![Modelo de piada da api](./src/assets/PrintsDoSite/piada.png)
 
 Com isso é possivel filtrar por category, como por exemplo category=programming para piadas de programação dentre outras bem como garantir que as suas piadas não vão ofender ninguem, no caso do projeto usamos o safe-mode no link, que já filtra piadas ofensivas.
 

@@ -4,7 +4,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 import { useState } from "react";
 import api from '../../../services/api';
-import { Await, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Register.css";
 
@@ -43,10 +43,7 @@ const Register = () => {
         }
 
         try{
-          const resp = await api.post("/user", {name:name ,email:email, password:password})
-
-            const data = await resp.data
-          
+          await api.post("/user", {name:name ,email:email, password:password})
 
           alert('Você foi cadastrado! Faça o Login.');
           navigate('/');

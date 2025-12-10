@@ -31,18 +31,20 @@ const Header = () => {
   };
 
   return (
-    <div className='container_header'>
-      <header>
-        <h1>π-adas para você, engraçadinho.</h1>
-        {isLoggedIn && (
-          <div className='user_info'>
-            <span className='user_name'>Olá {userName}, hahahaha!</span>
-            <button className='logout_button' onClick={handleLogout}>Logout</button>
-          </div>
-        )}
-      </header>
-    </div>
-  )
+  <div className='container_header'>
+    <header>
+      <h1>π-adas para você, engraçadinho.</h1>
+
+      {isLoggedIn && location.pathname !== "/" && location.pathname !== "/register" && (
+        <div className='user_info'>
+          <span className='user_name'>Olá {userName}, hahahaha!</span>
+          <button className='logout_button' onClick={handleLogout}>Logout</button>
+        </div>
+      )}
+
+    </header>
+  </div>
+)
 }
 
 export default Header

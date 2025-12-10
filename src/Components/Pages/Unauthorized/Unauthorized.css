@@ -5,7 +5,7 @@
 }
 
 .pagina_unauthorized{
-    min-height: calc(100vh - 180px);
+    min-height: 100vh;
     background-image: url('../../../assets/Imagens/emojiRindo.jpg');
     background-size: cover;
     background-position: center;
@@ -68,4 +68,6 @@
 .btn_voltar:hover{
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    background-color: rgb(33, 72, 164);
+    color: #fff;
 }
